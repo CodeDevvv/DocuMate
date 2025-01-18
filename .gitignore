@@ -38,3 +38,62 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Node.js
+node_modules/
+.npm/
+*.log
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Next.js
+.next/
+out/
+*.next*
+*.out*
+
+# Build files
+build/
+
+# TypeScript
+*.tsbuildinfo
+
+# Tailwind CSS
+tailwind-debug.log
+
+# Tiptap Extensions
+tiptap-extension-build/
+
+# Testing and Coverage
+coverage/
+*.lcov
+*.lcov-report
+
+# Environment Variables
+.env
+.env.*.local
+
+# Local configuration files
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.swo
+
+# Lockfiles
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Miscellaneous
+*.temp
+*.bak
+*.old
+*.orig
+
+# Ignoring Firebase-specific files (if used for deployment)
+firebase-debug.log
+firebase-debug.*
+.firebaserc
