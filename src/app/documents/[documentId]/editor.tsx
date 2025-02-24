@@ -21,8 +21,26 @@ import TextAlign from '@tiptap/extension-text-align'
 import { FontSize } from '@/extensions/font-size'
 import { LineHeight } from '@/extensions/line-height'
 import { Ruler } from './ruler'
+import { useLiveblocksExtension } from "@liveblocks/react-tiptap";
+import { Threads } from './threads'
+import { RIGHT_MARGIN_DEFAULT, LEFT_MARGIN_DEFAULT } from "@/constants/margins";
 
-export const Editor = () => {
+import { useStorage } from '@liveblocks/react'
+
+interface EditorProps {
+    initialContent?: string | undefined;
+}
+
+export const Editor = ({ initialContent }: EditorProps) => {
+
+    const leftMargin = useStorage((root) => root.leftMargin ?? LEFT_MARGIN_DEFAULT);
+    const rightMargin = useStorage((root) => root.rightMargin ?? RIGHT_MARGIN_DEFAULT);
+
+    const liveblocks = useLiveblocksExtension({
+        initialContent,
+        offlineSupport_experimental: true,
+    });
+
     const { setEditor } = useEditorStore();
 
     const editor = useEditor({
@@ -53,11 +71,15 @@ export const Editor = () => {
         },
         editorProps: {
             attributes: {
-                style: "padding-left: 56px; padding-right:56px;",
+                style: `padding-left: ${leftMargin}px; padding-right: ${rightMargin}px;`,
                 class: "focus:outline-none print:border-0 bg-white border border-[#C7c7c7] flex flex-col min-h-[1045px] w-[816px] pt-10 pr-14 pb-10 cursor-text"
             }
         },
-        extensions: [StarterKit,
+        extensions: [
+            StarterKit.configure({
+                history: false,
+            }),
+            liveblocks,
             TaskItem.configure({
                 nested: true,
             }),
@@ -93,6 +115,7 @@ export const Editor = () => {
             <Ruler />
             <div className='min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0'>
                 <EditorContent editor={editor} />
+                <Threads editor={editor}/>
             </div>
             ̥
         </div>

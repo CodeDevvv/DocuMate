@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { SearchInput } from "./search-input";
+import { UserButton, OrganizationSwitcher } from "@clerk/nextjs"
+
 
 export const Navbar = () => {
     return(
@@ -12,7 +14,19 @@ export const Navbar = () => {
                 <h3 className="text-xl">DocuMate</h3>
             </div>
             <SearchInput />
-            <div />
+            {/* Component from Clerk */}
+            <div className="flex items-center gap-3 pl-6">
+                {/* To create Organization */}
+                <OrganizationSwitcher 
+                afterCreateOrganizationUrl="/"
+                afterSelectOrganizationUrl="/"
+                afterLeaveOrganizationUrl="/"
+                afterSelectPersonalUrl="/"
+                />
+                {/* User Button (Profile, Logout..) */}
+                <UserButton />
+            </div>
+            
         </nav> 
     )
 }
